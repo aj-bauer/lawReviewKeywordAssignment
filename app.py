@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import numpy as np
-import pandas as pd
+# import pandas as pd
 import joblib
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -14,6 +14,7 @@ import nltk
 nltk.download('wordnet')
 from nltk.tokenize import RegexpTokenizer
 from nltk.stem.wordnet import WordNetLemmatizer
+import csv
 
 # Load the pre-trained model
 model_path = os.path.join(os.path.dirname(__file__), "model", "label_maker.skops")
@@ -22,8 +23,14 @@ model = sio.load(model_path, trusted=unknown_types)
 
 # Load our docs and train our vectorizer
 doc_path = os.path.join(os.path.dirname(__file__), "data", "docs.csv")
-docs = pd.read_csv(doc_path)
-vectorizer = TfidfVectorizer(max_features=2500, max_df=0.9).fit(docs['abstract'].tolist())
+docs = []
+with open(doc_path, "r") as csvfile:
+    reader_variable = csv.reader(csvfile, delimiter=",")
+    next(reader_variable) # skip header
+    for row in reader_variable:
+        docs = docs + row
+# docs = pd.read_csv(doc_path)
+vectorizer = TfidfVectorizer(max_features=2500, max_df=0.9).fit(docs)
 
 # define input text preprocessor
 def doc_preprep_tfidf(abstract):
