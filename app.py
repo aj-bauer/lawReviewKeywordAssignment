@@ -70,7 +70,7 @@ app.add_middleware(
 
 # Define request body schema
 class TextInput(BaseModel):
-    abstract: string
+    abstract: str
 
 # Mount the 'frontend' directory
 app.mount("/static", StaticFiles(directory="frontend"), name="static")
@@ -82,7 +82,8 @@ def serve_index():
 
 # Define the prediction endpoint
 @app.post("/predict")
-async def predict(abstract: TextInput):
-    data = doc_preprep_tfidf(abstract)
-    prediction = model.predict([data])[0]
+async def predict(input: TextInput):
+    data = doc_preprep_tfidf(input.abstract)
+    tfidf = vectorizer.transform(data)
+    prediction = model.predict(tfidf)[0]
     return {"prediction": str(prediction)}
