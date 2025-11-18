@@ -62,7 +62,7 @@
 
   <form id="abstractForm">
     <label for="message">Article Abstract:</label>
-    <textarea name="message" style="width:400px; height:400px;"></textarea>
+    <textarea name="message" id="message" style="width:400px; height:400px;"></textarea>
 
     <button type="submit">Generate Subject Terms</button>
   </form>
@@ -75,7 +75,7 @@
 
       // Collect values
       const inputs = document.getElementById("message").value;
-
+      console.log(inputs)
       // Send request to backend API
      
 
