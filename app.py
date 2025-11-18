@@ -85,5 +85,5 @@ def serve_index():
 async def predict(input: TextInput):
     data = doc_preprep_tfidf(input.abstract)
     tfidf = vectorizer.transform(data)
-    prediction = model.predict(tfidf)[0]
+    prediction = model.predict(tfidf)
     return {"prediction": str(prediction)}
