@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Car Sales Forecast</title>
+  <title>Keyword Generator: Law Review Abstracts</title>
   <style>
     body {
       font-family: Verdana, sans-serif;
@@ -57,14 +57,12 @@
 </head>
 <body>
 
-  <h2>Next Month Car Sales Predictor</h2>
-  <h3>Avi Bauer, MESA8414, Fall 2025</h3>
+  <h2>Create Keywords from an Abstract</h2>
+  <h3>Paste the abstract of a law review article in the box below.</h3>
 
   <form id="abstractForm">
     <label for="message">Article Abstract:</label>
-    <textarea name="message" style="width:400px; height:400px;">
-      Paste Text Here.
-    </textarea>
+    <textarea name="message" style="width:400px; height:400px;"></textarea>
 
     <button type="submit">Generate Subject Terms</button>
   </form>
@@ -91,7 +89,7 @@
         });
 
         const data = await response.json();
-        document.getElementById("output").textContent = "Subject Terms: " + data.prediction.toFixed(0);
+        document.getElementById("output").textContent = "Subject Terms: " + data.prediction;
       } catch (error) {
         document.getElementById("output").textContent = "Error: " + error.message;
       }
