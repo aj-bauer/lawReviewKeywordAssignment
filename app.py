@@ -15,6 +15,8 @@ nltk.download('wordnet')
 from nltk.tokenize import RegexpTokenizer
 from nltk.stem.wordnet import WordNetLemmatizer
 import csv
+from fastapi.responses import JSONResponse
+from fastapi.encoders import jsonable_encoder
 
 # Load the pre-trained model
 model_path = os.path.join(os.path.dirname(__file__), "model", "label_maker.skops")
@@ -130,6 +132,7 @@ async def predict(input: TextInput):
     df = pd.DataFrame(prediction, columns=col_names)
     cols = df.columns[(df == 1).any()].tolist()
     prediction_string = ", ".join(cols)
+    return_body = jsonable_encoder(ModelOutput(prediction = prediction_string))
   
     # reutrn data
-    return ModelOutput(prediction = prediction_string)
+    return JSONResponse(content=return_body)
