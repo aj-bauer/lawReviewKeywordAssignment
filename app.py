@@ -104,6 +104,10 @@ app.add_middleware(
 class TextInput(BaseModel):
     abstract: str
 
+# Define output
+class ModelOutput(BaseModel):
+  prediction: str
+
 # Mount the 'frontend' directory
 app.mount("/static", StaticFiles(directory="frontend"), name="static")
 
@@ -126,5 +130,6 @@ async def predict(input: TextInput):
     df = pd.DataFrame(prediction, columns=col_names)
     cols = df.columns[(df == 1).any()].tolist()
     prediction_string = ", ".join(cols)
+  
     # reutrn data
-    return {"prediction": str(prediction_string)}
+    return ModelOutput(prediction = prediction_string)
