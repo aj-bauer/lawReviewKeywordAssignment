@@ -153,7 +153,7 @@ async def predict(input: TextInput):
     mask = (pred_array == 1)
     subj_shortlist = subj_array[mask]
   except Exception as e:
-    return {'error':'mask'}
+    return {'error': mask}
 
   try:
     prediction_string = ", ".join(subject_shortlist)
