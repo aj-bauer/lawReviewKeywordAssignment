@@ -88,7 +88,13 @@
         });
 
         const data = await response.json();
-        document.getElementById("output").textContent = "Subject Terms: " + data.prediction;
+        if (data.error) {
+          document.getElementByID("output").textContent = "Response Error:" + data.error;
+        } else if (data.prediction) {
+          document.getElementById("output").textContent = "Subject Terms: " + data.prediction;
+        } else {
+          document.getElementById("output").textContent = "Something went horribly wrong."
+        }
       } catch (error) {
         document.getElementById("output").textContent = "Error: " + error.message;
         console.log(error)
