@@ -59,10 +59,10 @@ subj_terms = ['Administrative Law',
 doc_path = os.path.join(os.path.dirname(__file__), "data", "docs.csv")
 docs = []
 with open(doc_path, "r") as csvfile:
-    reader_variable = csv.reader(csvfile, delimiter=",")
-    next(reader_variable) # skip header
-    for row in reader_variable:
-        docs = docs + row
+  reader_variable = csv.reader(csvfile, delimiter=",")
+  next(reader_variable) # skip header
+  for row in reader_variable:
+    docs = docs + row
 # docs = pd.read_csv(doc_path)
 vectorizer = TfidfVectorizer(max_features=2500, max_df=0.9).fit(docs)
 
@@ -116,12 +116,13 @@ app.mount("/static", StaticFiles(directory="frontend"), name="static")
 # Serve index.html at root
 @app.get("/")
 def serve_index():
-    return FileResponse(os.path.join("frontend", "index.html"))
+  return FileResponse(os.path.join("frontend", "index.html"))
 
 # Define the prediction endpoint
 @app.post("/predict")
 async def predict(input: TextInput):
-    # Generate TFIDF
+  try:  
+    # Generate TFIDF  
     data = doc_preprep_tfidf(input.abstract)
     tfidf = vectorizer.transform(data)
     
@@ -136,3 +137,8 @@ async def predict(input: TextInput):
   
     # reutrn data
     return JSONResponse(content=return_body)
+    
+  except Exception as e:
+    # Return error
+    return {error: e}
+    
