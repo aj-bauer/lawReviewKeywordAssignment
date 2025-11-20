@@ -162,7 +162,7 @@ async def predict(input: TextInput):
     
   try:
     # reutrn data
-    return {'prediction': prediction}
+    return {'prediction': prediction_string}
   except Exception as e:
     return {'error': 'return failed'}
     
