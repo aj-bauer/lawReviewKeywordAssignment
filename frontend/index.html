@@ -90,6 +90,7 @@
         const data = await response.json();
         if (data.error) {
           document.getElementById("output").textContent = "Response Error:" + data.error;
+          console.log(data.error)
         } else if (data.prediction) {
           document.getElementById("output").textContent = "Subject Terms: " + data.prediction;
         } else {
