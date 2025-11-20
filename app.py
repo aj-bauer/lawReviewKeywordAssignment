@@ -136,13 +136,13 @@ async def predict(input: TextInput):
     # prediction_string = ", ".join(cols)
 
     # Transform into list of keywords NOT using pandas
-    pred_array = np.array(prediction)
-    mask = (pred_array == 1)
-    subj_shortlist = subj_array[mask]
-    prediction_string = ", ".join(subject_shortlist)
+    # pred_array = np.array(prediction)
+    # mask = (pred_array == 1)
+    # subj_shortlist = subj_array[mask]
+    # prediction_string = ", ".join(subject_shortlist)
     
     # reutrn data
-    return {'prediction': prediction_string}
+    return {'prediction': prediction}
     
   except Exception as e:
     # Return error
