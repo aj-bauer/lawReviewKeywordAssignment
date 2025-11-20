@@ -145,7 +145,7 @@ async def predict(input: TextInput):
     # prediction_string = ", ".join(cols)
   try:
     # Transform into list of keywords NOT using pandas
-    pred_array = np.array(prediction[0])
+    pred_array = np.array(prediction)[0]
   except Exception as e:
     return {'error':'np.array'}
 
