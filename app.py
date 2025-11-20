@@ -133,7 +133,7 @@ async def predict(input: TextInput):
     df = pd.DataFrame(prediction, columns=col_names)
     cols = df.columns[(df == 1).any()].tolist()
     prediction_string = ", ".join(cols)
-    return_body = jsonable_encoder(ModelOutput('prediction' = prediction_string))
+    return_body = jsonable_encoder(ModelOutput(prediction=prediction_string))
   
     # reutrn data
     return JSONResponse(content=return_body)
