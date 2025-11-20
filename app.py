@@ -15,8 +15,8 @@ nltk.download('wordnet')
 from nltk.tokenize import RegexpTokenizer
 from nltk.stem.wordnet import WordNetLemmatizer
 import csv
-from fastapi.responses import JSONResponse
-from fastapi.encoders import jsonable_encoder
+# from fastapi.responses import JSONResponse
+# from fastapi.encoders import jsonable_encoder
 
 # Load the pre-trained model
 model_path = os.path.join(os.path.dirname(__file__), "model", "label_maker.skops")
@@ -107,8 +107,8 @@ class TextInput(BaseModel):
     abstract: str
 
 # Define output
-class ModelOutput(BaseModel):
-  prediction: str
+# class ModelOutput(BaseModel):
+#   prediction: str
 
 # Mount the 'frontend' directory
 app.mount("/static", StaticFiles(directory="frontend"), name="static")
@@ -127,16 +127,19 @@ async def predict(input: TextInput):
     tfidf = vectorizer.transform(data)
     
     # Preduct output using the model
-    prediction = model.predict(tfidf)
-
+    try:
+      prediction = model.predict(tfidf)
+    except Exception as e:
+      return {'prediction_error': e}
+      
     # Transform into list of keywords
     df = pd.DataFrame(prediction, columns=col_names)
     cols = df.columns[(df == 1).any()].tolist()
     prediction_string = ", ".join(cols)
-    return_body = jsonable_encoder(ModelOutput(prediction=prediction_string))
+    # return_body = jsonable_encoder(ModelOutput(prediction=prediction_string))
   
     # reutrn data
-    return JSONResponse(content=return_body)
+    return {'prediction': prediction_string}
     
   except Exception as e:
     # Return error
