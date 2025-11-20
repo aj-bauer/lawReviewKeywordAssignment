@@ -125,26 +125,44 @@ async def predict(input: TextInput):
   try:  
     # Generate TFIDF  
     data = doc_preprep_tfidf(input.abstract)
+  except Exception as e:
+    return {'error': 'doc_preprep_tfidf'}
+  
+  try:
     tfidf = vectorizer.transform(data)
-    
+  except Exception as e:
+    return {'error':'vectorizer'}
+
+  try:
     # Preduct output using the model
     prediction = model.predict(tfidf)
+  except Exception as e:
+    return {'error':'model.predict'}
     
     # Transform into list of keywords
     # df = pd.DataFrame(prediction, columns=subj_terms)
     # cols = df.columns[(df == 1).any()].tolist()
     # prediction_string = ", ".join(cols)
-
+  try:
     # Transform into list of keywords NOT using pandas
-    # pred_array = np.array(prediction)
-    # mask = (pred_array == 1)
-    # subj_shortlist = subj_array[mask]
-    # prediction_string = ", ".join(subject_shortlist)
+    pred_array = np.array(prediction)
+  except Exception as e:
+    return {'error':'np.array'}
+
+  try:
+    mask = (pred_array == 1)
+    subj_shortlist = subj_array[mask]
+  except Exception as e:
+    return {'error':'mask'}
+
+  try:
+    prediction_string = ", ".join(subject_shortlist)
+  except Exception as e:
+    return {'error':'string concat'}
     
+  try:
     # reutrn data
     return {'prediction': prediction}
-    
   except Exception as e:
-    # Return error
-    return {'error': e}
+    return {'error': 'return failed'}
     
