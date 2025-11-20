@@ -129,9 +129,9 @@ async def predict(input: TextInput):
     return {'error': 'doc_preprep_tfidf'}
   
   try:
-    tfidf = vectorizer.transform(data)
+    tfidf = vectorizer.transform([data])
   except Exception as e:
-    return {'error':'vectorizer'}
+    return {'error': data}
 
   try:
     # Preduct output using the model
