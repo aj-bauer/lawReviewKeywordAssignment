@@ -13,26 +13,17 @@ The resulting classifier, which accepts law review article abstracts and returns
 *Dataset Note*: The journals surveyed are the Boston College Law Review, the Boston College Environmental Affairs Law Review, the Boston College International and Comparative Law Review, the Boston College Journal of Law & Social Justice, and the Boston College Third World Law Journal. The articles represented in this dataset span publication dates from Jan 1962 - June 2022. All of the data in this dataset is public and available from https://lira.bc.edu.
 
 ## FILE STRUCTURE
-MESA8414_LabelMaker/
 
-|-- README.txt
-
-|-- requirements.txt
-
-|-- app.py
-
-|-- data/
-
-|-------- docs.csv  *# required to train vectorizer*
-
-|-- frontend/
-
-|-------- index.html
-
-|-- model/
-
-|-------- label_maker.skops
-
-|-- notebooks/
-
-|-------- MESA8414_LabelMaker_ModelBuilding.ipynb
+```
+├── README.txt
+├── requirements.txt
+├── app.py
+├── data/
+    └── docs.csv  <- required to train vectorizer
+├── frontend/
+├── index.html
+├── model
+    └── label_maker.skops
+└── notebooks
+    └── MESA8414_LabelMaker_ModelBuilding.ipynb
+```
