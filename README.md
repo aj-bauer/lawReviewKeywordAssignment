@@ -1,4 +1,4 @@
-# MESA8414: Label Maker
+# Law Review Automatic Keyword Assignment
 
 *Contributors*: Avi Bauer (aj-bauer) & Sarah Her (sarah-her)
 
